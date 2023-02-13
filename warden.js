@@ -1,3 +1,5 @@
+// Warning: please don't use it yet. Still in development
+
 import {updateStringFile } from "./fileIO.js";
 import { syncFile } from "./driveIO.js";
 import generateRandomPassowrd from "./pigen.js";

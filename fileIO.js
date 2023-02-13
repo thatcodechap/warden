@@ -1,3 +1,4 @@
+// Warning: please don't use it yet. Still in development
 import fs from 'node:fs/promises'
 
 export async function getFileBuffer(fileName){

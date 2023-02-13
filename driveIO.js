@@ -5,6 +5,7 @@ Refer Oauth2 and Drive API docs for detailed process:
 Oauth2 Protocol: https://developers.google.com/identity/protocols/oauth2
 Drive API docs: https://developers.google.com/drive/api/guides/about-sdk
 */
+// Warning: please don't use it yet. Still in development
 
 import fetch from 'isomorphic-fetch';
 import {getFileBuffer,readJsonFile} from './fileIO.js';
