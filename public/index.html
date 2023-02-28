@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head><title>Warden | Password Manager</title></head>
+    <link rel="stylesheet" href="styles/style.css">
+    <body>
+        <script src="scripts/main.js" type="module" defer></script>
+        <h1>Warden</h1>
+        <div class="container">
+            <form class="addForm" onsubmit="return false">
+                <input type="text" name="keyword" id="keyword" placeholder="Keyword">
+                <input type="text" name="password" id="password" placeholder="Password">
+                <input type="submit" value="Add" id="addButton">
+            </form>
+            <div id="passwordList"></div>
+        </div>
+    </body>
+</html>

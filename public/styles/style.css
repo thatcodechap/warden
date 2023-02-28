@@ -1,0 +1,21 @@
+h1{
+    text-align: center;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.box {
+    width: 100px;
+    border: 1px solid black;
+    padding: 5px;
+    margin-right: 10px;
+}
+.entry{
+    display: flex;
+    align-items: center;
+}
+.delete:hover {
+    cursor: pointer;
+}
