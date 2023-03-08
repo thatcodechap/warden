@@ -4,6 +4,7 @@ import {fileURLToPath} from 'url';
 import path from 'node:path';
 import {authorize,sync, sendPasswordList} from './middlewares.js';
 
+const port = 8080;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
@@ -19,4 +20,4 @@ app.get('/fetch', sendPasswordList);
 app.post('/sync', sync);
 app.get('/auth', authorize);
 
-app.listen(8080,()=>{});
+app.listen(port,()=>{console.log(`Warden started at port ${port}`)});
