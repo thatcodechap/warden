@@ -32,7 +32,7 @@ export async function authorize(req,res){
             res.cookie('refreshToken',refreshToken,{httpOnly: true, maxAge: 1296000000,sameSite: 'Strict'});
             res.cookie('sessionExist','true');
         }catch(error){
-            console.log("Failed to initialize drive: "+error.message);
+            console.log("Failed to initialize drive: "+error);
         }
         res.send('<script>window.close()</script>');
     }else res.end();

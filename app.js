@@ -10,6 +10,7 @@ const app = express();
 
 app.use('/styles',express.static('public/styles'));
 app.use('/scripts',express.static('public/scripts'));
+app.use('/assets', express.static('public/assets'))
 app.use(cookieParser());
 app.use(express.json());
 
