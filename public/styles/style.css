@@ -1,16 +1,40 @@
+body{
+    background-color: #121212;
+}
+
 h1{
     text-align: center;
+    color: rgba(255, 255, 255, 0.76);
 }
 .container{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+.addForm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
 .box {
-    width: 100px;
-    border: 1px solid black;
+    color: rgba(255, 255, 255, 0.668);
+    background-color: rgba(255,255,255,0.08);
+    border-width: 0px;
+    width: 150px;
+    height: 25px;
     padding: 5px;
     margin-right: 10px;
+    border-radius: 5px;
+}
+#keyword, #password {
+    color: white;
+    background-color: rgba(255,255,255,0.05);
+    border-width: 0px;
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding-left: 10px;
 }
 .entry{
     display: flex;
@@ -18,4 +42,50 @@ h1{
 }
 .delete:hover {
     cursor: pointer;
+}
+#addButton {
+    width: 25px;
+    height: 25px;
+    padding: 2px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-style: solid;
+}
+#editButton{
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+#deleteButton{
+    width: 23px;
+    height: 23px;
+}
+#backup {
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.4);
+    background-color: inherit;
+    border: rgba(255, 255, 255, 0.4) solid 1px ;
+    font-size: medium;
+    min-width: 100px;
+    padding: 5px;
+    cursor: pointer;
+}
+.errorMessage {
+    border: #cf667946 solid 1px;
+    padding: 20px;
+    color: #cf6679;
+}
+.tryButton {
+    margin-left: 5px;
+    background: none;
+    color: #cf6679;
+    border: #cf6679 solid 1px;
+    padding: 5px;
+    cursor: pointer;
+}
+#sync {
+    opacity: 0.5;
+    width: 32px;
+    height: 32px;
 }
