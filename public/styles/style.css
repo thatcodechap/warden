@@ -46,11 +46,6 @@ h1{
 #addButton {
     width: 25px;
     height: 25px;
-    padding: 2px;
-    border-radius: 5px;
-    border-width: 1px;
-    border-color: rgba(255, 255, 255, 0.3);
-    border-style: solid;
 }
 #editButton{
     margin-right: 10px;

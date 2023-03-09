@@ -59,18 +59,29 @@ function createKeywordElement(initialValue){
 function createPasswordElement(initialValue){
     let element = createInputElement(initialValue);
     element.className = 'box';
+    element.setAttribute('type', 'password');
     element.setAttribute('readonly', 'true');
     setClickEventListener(element, copyValuetoClipbaord);
     return element;
 }
 async function copyValuetoClipbaord(){
-    if(this.value == 'Copied')
+    if(this.value == 'Copied' || !this.hasAttribute('readonly'))
         return;
     let temp = this.value;
     await navigator.clipboard.writeText(this.value);
+    togglePasswordInput(this);
     this.value = 'Copied';
     await wait(600);
     this.value = temp;
+    this.setAttribute
+    togglePasswordInput(this);
+}
+function togglePasswordInput(input){
+    let type = input.getAttribute('type');
+    if(type == 'text')
+        input.setAttribute('type', 'password');
+    else
+        input.setAttribute('type', 'text');
 }
 function deleteItem(){
     ward.remove(this.parentElement.querySelector('input').value);
@@ -234,12 +245,14 @@ function editEntry(){
     let command = this.value;
     console.log(command);
     if(command == 'edit'){
+        togglePasswordInput(inputs.item(1));
         disableReadOnly([inputs.item(0),inputs.item(1)]);
         inputs.item(1).select();
         this.setAttribute('src', 'assets/done.png');
         this.value = 'done';
         ward.remove(inputs.item(0).value);
     }else{
+        togglePasswordInput(inputs.item(1));
         enableReadOnly([inputs.item(0),inputs.item(1)]);
         this.setAttribute('src', 'assets/edit.png')
         this.value = 'edit';
