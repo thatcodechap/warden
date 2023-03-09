@@ -3,7 +3,7 @@ let ward = new warden();
 let syncCount = 0;
 let passwordList = document.querySelector('#passwordList');
 let mainContainer = document.querySelector('.container');
-const googleLoginUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=154498182121-i9vevd7if4kr77oocibtgadmqe047if6.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth&response_type=code&scope=https://www.googleapis.com/auth/drive.appdata&access_type=offline&include_granted_scopes=true';
+const googleLoginUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=154498182121-i9vevd7if4kr77oocibtgadmqe047if6.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth&response_type=code&scope=https://www.googleapis.com/auth/drive.appdata&prompt=consent&access_type=offline&include_granted_scopes=true';
 
 init();
 function init(){
@@ -41,8 +41,8 @@ function createEntry(key, password){
     let passwordContainer = createPasswordContainer();
     passwordContainer.append(createKeywordElement(key));
     passwordContainer.append(createPasswordElement(password));
-    passwordContainer.append(createButton('Edit',editEntry));
-    passwordContainer.append(createButton('Delete', deleteItem));
+    passwordContainer.append(createEditButton());
+    passwordContainer.append(createDeleteButton());
     return passwordContainer;
 }
 function createPasswordContainer(){
@@ -63,8 +63,14 @@ function createPasswordElement(initialValue){
     setClickEventListener(element, copyValuetoClipbaord);
     return element;
 }
-function copyValuetoClipbaord(){
-    navigator.clipboard.writeText(this.value);
+async function copyValuetoClipbaord(){
+    if(this.value == 'Copied')
+        return;
+    let temp = this.value;
+    await navigator.clipboard.writeText(this.value);
+    this.value = 'Copied';
+    await wait(600);
+    this.value = temp;
 }
 function deleteItem(){
     ward.remove(this.parentElement.querySelector('input').value);
@@ -82,7 +88,25 @@ function createButton(buttonText, action){
     setClickEventListener(element,action);
     return element;
 }
+function createEditButton(){
+    let element = document.createElement('input');
+    element.setAttribute('type', 'image');
+    element.setAttribute('src', 'assets/edit.png');
+    element.id = 'editButton';
+    element.value = 'edit';
+    setClickEventListener(element, editEntry);
+    return element;
+}
+function createDeleteButton(){
+    let element = document.createElement('input');
+    element.setAttribute('type', 'image');
+    element.setAttribute('src', 'assets/delete.png');
+    element.id = 'deleteButton';
+    setClickEventListener(element, deleteItem);
+    return element;
+}
 async function restore(){
+    hideFailMessage();
     try{
         let passwordList = await fetchPasswordList();
         ward.clear();
@@ -91,7 +115,7 @@ async function restore(){
         });
         displayPasswords();
     }catch(err){
-        showFailMessage('Restore Failed!', restore);
+        showFailMessage('Restore Failed ', restore);
     }
 }
 function displayPasswords(){
@@ -104,6 +128,7 @@ function displayPasswords(){
 }
 
 async function sync(){
+    hideFailMessage();
     if(!sessionExists())
         return;
     if(!syncing()){
@@ -118,7 +143,7 @@ async function sync(){
     }catch(err){
         syncCount--;
         hideSyncMessage();
-        showFailMessage("Sync Failed!", sync);
+        showFailMessage("Sync Failed ", sync);
     }
 }
 
@@ -141,14 +166,21 @@ function syncing(){
 }
 function showFailMessage(message, action){
     let failMessage = createParagraph(message);
+    failMessage.className = 'errorMessage';
     let tryAgainButton = createButton('Try Again',action);
+    tryAgainButton.className = 'tryButton';
     failMessage.append(tryAgainButton);
     mainContainer.append(failMessage);
 }
+function hideFailMessage(){
+    if(document.querySelector('.errorMessage'))
+    document.querySelector('.errorMessage').remove();
+}
 function showSyncMessage(){
-    let syncMessage = createParagraph('Syncing...');
-    syncMessage.id = 'sync';
-    mainContainer.append(syncMessage);
+    let syncImg = document.createElement('img');
+    syncImg.setAttribute('src', 'assets/loading.gif')
+    syncImg.id = 'sync';
+    mainContainer.append(syncImg);
 }
 function hideSyncMessage(){
     document.querySelector('#sync').remove();
@@ -160,11 +192,13 @@ function createParagraph(text){
 }
 
 async function backup(){
+    hideFailMessage();
     let loginWindow = window.open(googleLoginUrl,'__blank','popup,width=500,height=600');
     await waitForWindowClose(loginWindow);
-    hideBackupButton();
+    if(document.querySelector('#backup'))
+        hideBackupButton();
     if(!sessionExists()){
-        showFailMessage('Backup Failed!', backup);
+        showFailMessage('Backup Failed ', backup);
         return;
     }
     if(!wantsToRestore()){
@@ -197,15 +231,18 @@ function hideBackupButton(){
 
 function editEntry(){
     let inputs = this.parentElement.querySelectorAll('input');
-    let command = this.innerText;
-    if(command == 'Edit'){
-        disableReadOnly(inputs);
+    let command = this.value;
+    console.log(command);
+    if(command == 'edit'){
+        disableReadOnly([inputs.item(0),inputs.item(1)]);
         inputs.item(1).select();
-        this.innerText = "Done";
+        this.setAttribute('src', 'assets/done.png');
+        this.value = 'done';
         ward.remove(inputs.item(0).value);
     }else{
-        enableReadOnly(inputs);
-        this.innerText = "Edit";
+        enableReadOnly([inputs.item(0),inputs.item(1)]);
+        this.setAttribute('src', 'assets/edit.png')
+        this.value = 'edit';
         ward.add(inputs.item(0).value,inputs.item(1).value);
         sync();
     }
