@@ -32,6 +32,7 @@ function add(){
     if(ward.passwordExists(key)){
         alert("Keyword already exists!");
     }else{
+        resetInputs();
         ward.add(key, password);
         passwordList.append(createEntry(key, password));
         sync();
@@ -115,6 +116,10 @@ function createDeleteButton(){
     element.id = 'deleteButton';
     setClickEventListener(element, deleteItem);
     return element;
+}
+function resetInputs(){
+    document.querySelector('#keyword').value = '';
+    document.querySelector('#password').value = '';
 }
 async function restore(){
     hideFailMessage();
