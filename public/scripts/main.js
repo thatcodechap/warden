@@ -3,7 +3,7 @@ let ward = new warden();
 let syncCount = 0;
 let passwordList = document.querySelector('#passwordList');
 let mainContainer = document.querySelector('.container');
-const googleLoginUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=154498182121-i9vevd7if4kr77oocibtgadmqe047if6.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth&response_type=code&scope=https://www.googleapis.com/auth/drive.appdata&prompt=consent&access_type=offline&include_granted_scopes=true';
+const googleLoginUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=350990865082-6s5s1l5t5l5eonkea8prah5m04unmo1n.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth&response_type=code&scope=https://www.googleapis.com/auth/drive.appdata&prompt=consent&access_type=offline&include_granted_scopes=true';
 
 init();
 function init(){

@@ -5,8 +5,8 @@ export default class DriveRequestHandler{
     #downloadUrl = 'https://www.googleapis.com/drive/v3/files/';
     #oauthUrl = 'https://oauth2.googleapis.com/token';
     #apiCredentials = {
-        clientId: '154498182121-i9vevd7if4kr77oocibtgadmqe047if6.apps.googleusercontent.com',
-        clientSecret: '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',
+        clientId: '350990865082-6s5s1l5t5l5eonkea8prah5m04unmo1n.apps.googleusercontent.com',
+        clientSecret: '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',
         redirectUrl: 'http://localhost:8080/auth',
     }
     #refreshToken;
